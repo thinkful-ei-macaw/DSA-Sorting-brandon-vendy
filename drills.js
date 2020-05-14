@@ -4,13 +4,10 @@
 //c. first list: [1,21], second list [26,45]
 //d. merge[34,43]
 
-
 //21, 1, 26, 45, 29, 28, 2, 9, 16, 49, 39, 27, 43, 34, 46, 40
 
 //[21, 1, 26, 45, 29, 28, 2, 9]
 //[16, 49, 39, 27, 43, 34, 46, 40]
-
-
 
 // 21, 1, 26, 45, 29, 28, 2, 9, 16, 49, 39, 27, 43, 34, 46, 40
 // [1, 2, 9, 16, ... 45] [46, 49]
@@ -33,17 +30,16 @@
 
 //merge [1,2,9,16,21,26,27,28,29,34,39,40,43,45,46]
 
-
-
 //2.Understanding Quicksort
 //a. Pivot could be either 14, or 17
-//values below 14 or 17 are less, 
+//values below 14 or 17 are less,
 //values above 14 or 17 are higher
 //b.  9, answer[16], 13, 15, 19, 10, 3, 17, 14, pivot(12)
 // pivot(14), 17, 12, 15, answer[3], 10, 19, 16, 9, 13
 //breaks array down into continually smaller chunks
 //then merges them back together
 
+const LinkedList = require("./linked-list");
 
 function swap(array, i, j) {
   const tmp = array[i];
@@ -82,7 +78,7 @@ const quickSort = (arr, start = 0, end = arr.length) => {
   return arr;
 };
 
-console.log(quickSort(qSortArray));
+// console.log(quickSort(qSortArray));
 
 const qSortArray = [
   89,
@@ -186,3 +182,79 @@ const qSortArray = [
   14,
   5,
 ];
+
+//3. Implementing Quick Sort
+const qSort = (arr, start = 0, end = arr.length) => {
+  if (start >= end) {
+    return arr;
+  }
+  const middle = partition(arr, start, end);
+  arr = qSort(arr, start, middle);
+  arr = qSort(arr, middle + 1, end);
+  return arr;
+};
+
+// console.log(qSort(qSortArray));
+
+//4. mergeSort Implementation 
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+
+  const middle = Math.floor(array.length / 2);
+  let left = array.slice(0, middle);
+  let right = array.slice(middle, array.length);
+
+  left = mergeSort(left);
+  right = mergeSort(right);
+  return merge(left, right, array);
+}
+function merge(left, right, array) {
+  let leftIndex = 0;
+  let rightIndex = 0;
+  let outputIndex = 0;
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      array[outputIndex++] = left[leftIndex++];
+    } else {
+      array[outputIndex++] = right[rightIndex++];
+    }
+  }
+
+  for (let i = leftIndex; i < left.length; i++) {
+    array[outputIndex++] = left[i];
+  }
+
+  for (let i = rightIndex; i < right.length; i++) {
+    array[outputIndex++] = right[i];
+  }
+  return array;
+}
+
+const ourLinkList = new LinkedList();
+
+ourLinkList.insertFirst(38);
+ourLinkList.insertFirst(28);
+ourLinkList.insertFirst(2);
+ourLinkList.insertFirst(38);
+ourLinkList.insertLast(133);
+ourLinkList.insertLast(133);
+ourLinkList.insertLast(43);
+ourLinkList.insertLast(33);
+
+//console.log(mergeSort(ourLinkList));
+
+const bucketSort = (arr, min, max) => {
+  //something here
+  if(arr.length <= 1) {
+    return arr;
+  }
+  const sortedArr = [];
+  for(let i = 0; i < arr.length; i++) {
+    if(arr[i] <)
+  }
+};
+
+const bucket = [12, 34, 86, 1, 27, 102, 36, 65];
+// lowest = 1, highest = 102
